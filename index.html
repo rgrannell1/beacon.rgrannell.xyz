@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="My personal website, containing anything I want to post online">
+
+    <title>Beacon</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+  <body>
+  <div>
+    <h1>Beacon</h1>
+
+    <p>Beacon sends <strong>opt-in</strong> geolocation data to a common-storage server, using standard
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API">geolocation APIs</a>
+    </p>
+
+    <form action="" method="POST">
+        <label for="endpoint">HTTPS Endpoint:</label>
+        <input type="url" id="endpoint" name="endpoint" placeholder="https://example.com" required>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="User with write-permissions" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Password with write-permissions" required>
+
+        <label for="topic">Topic:</label>
+        <input type="text" id="topic" name="topic" placeholder="Common-storage topic" required>
+
+        <label for="device">Device:</label>
+        <input type="text" id="device" name="device" placeholder="Device identifier" required>
+
+        <button id="connect-button" type="submit">Connect</button>
+    </form>
+
+    <div id="telemetry-status">
+      <h2>Telemetry Status</h2>
+
+      <section>
+        <label>Last Sent At</label>
+        <output id="last-sent"></output>
+
+        <label>Statistics</label>
+        <output id="statistics"></output>
+
+        <label>Location</label>
+        <output>
+          <a id="location"></a>
+        </output>
+      </section>
+    </div>
+  </body>
+
+  <script src="/index.js"></script>
+  <script>
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(err => {
+        console.error(`⚙️ failed service worker: /sw.js ${err}`)
+      });
+    } else {
+      console.error('⚙️ service worker not supported: /sw.js')
+    }
+  </script>
+</html>
